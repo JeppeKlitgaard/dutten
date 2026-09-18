@@ -1,0 +1,16 @@
+[package]
+name = "dutten-common"
+version = "0.1.0"
+entrypoint = "src/lib.typ"
+authors = ["Jeppe Klitgaard"]
+description = "Unofficial common resources for the design guide of the Technical University of Denmark "
+repository = "https://github.com/JeppeKlitgaard/dutten"
+keywords = [
+    "design-guide",
+]
+categories = [
+    "components",
+    "visualization",
+    "layout",
+]
+compiler = "0.15.0"

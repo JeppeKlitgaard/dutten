@@ -1,4 +1,5 @@
 #import "_utils.typ": _find-key-by-value
+#import "_utils.typ"
 #import "@preview/decasify:0.11.2": titlecase-string
 
 // Colours: https://designguide.dtu.dk/colours
@@ -76,6 +77,9 @@
   ///
   /// -> color
   c,
+  /// Additional arguments to pass to the image function when loading the logo, e.g. width, height, etc.
+  /// -> arguments
+   ..img-args
 ) = {
   if type(c) != color {
     panic("logo(c) expects a color as argument")
@@ -100,5 +104,5 @@
 
   let filename = titlecase-string(color-name, "en", "").replace(" ", "_") + "_" + color-type-str + ".pdf"
 
-  image("assets/logos/" + filename)
+  image("assets/logos/" + filename, ..img-args)
 }
