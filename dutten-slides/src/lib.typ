@@ -1,4 +1,13 @@
-#import "@preview/touying:0.6.1": *
+// Re-export these such that downstream can access correct versions of dependencies
+// For example, get the correct version of touying
+#import "deps.typ"
+
+// We additionally import touying here explicitly since it is a particularly important
+// dependency
+#import "deps.typ": touying
+#import touying: *
+
+
 #import "@local/dutten-common:0.1.0": colors-rgb, get-logo, tint, _utils
 #import _utils: _resolve-4-sides
 

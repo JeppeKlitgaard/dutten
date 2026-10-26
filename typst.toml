@@ -1,0 +1,22 @@
+[package]
+name = "dutten"
+version = "0.1.0"
+entrypoint = "src/lib.typ"
+authors = ["Jeppe Klitgaard <hi@jeppe.science>"]
+description = "Unofficial templates and tools for the Technical University of Denmark"
+repository = "https://github.com/JeppeKlitgaard/dutten"
+keywords = [
+    "slides",
+    "touying",
+    "presentation",
+    "poster",
+    "report",
+    "thesis",
+    "stem",
+]
+categories = [
+    "components",
+    "visualization",
+    "layout",
+]
+compiler = "0.15.1"
