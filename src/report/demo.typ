@@ -1,5 +1,5 @@
-#import "@preview/dutten-common:0.1.0": colors-rgb, colors-cmyk, tint
-#import "@preview/dutten-common:0.1.0": get-logo
+#import "../colors.typ": colors-rgb, tint
+#import "../get-logo.typ": get-logo
 
 #let frontpage-1(primary-color: colors-rgb.at("corporate red")) = {
   // Setup variables
