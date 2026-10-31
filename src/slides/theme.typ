@@ -3,7 +3,9 @@
 
 #import "../colors.typ": colors-rgb, tint
 #import "../get-logo.typ": get-logo
-#import "../_utils.typ": _resolve-4-sides
+#import "../_utils/lib.typ": resolve-4-sides
+#import "pympress.typ": get-pympress-config-common-dict-args
+#import "handout.typ": get-handout-config-common-dict-args
 
 // Very small amount to move things by to prevent anti-aliasing weirdness
 #let _EPS = 0.05mm
@@ -103,7 +105,7 @@
     line(length: 100%, stroke: (thickness: 1.4mm, paint: self.colors.primary))
     place(top + right, self.info.logo, dx: -7mm, dy: 7mm)
 
-    let page-margin = _resolve-4-sides(self.page.margin)
+    let page-margin = resolve-4-sides(self.page.margin)
     show: components.cell.with(inset:
       (
         left: page-margin.left,
@@ -266,6 +268,33 @@
 
 )
 
+/// Speaker notes: touying's default panel with a single-line header and a slide counter
+#let notes(self: none, note: none, slide-preview: none) = touying-notes(
+  self: self,
+  header: self => block(width: 100%, height: 72pt, inset: (x: 32pt), std.align(horizon, {
+    set text(size: 30pt)
+    context {
+      // Untitled sections (e.g. the title slide's `=`) have an empty body
+      let section = utils.current-heading(level: 1, depth: self.slide-level)
+      if section != none and section.body != [] {
+        section.body
+        [ --- ]
+      }
+    }
+    utils.display-current-heading(level: 2, depth: self.slide-level)
+  })),
+  fill: self.colors.neutral-lightest,
+  // Counter gets its own row so bottom-aligned notes (`v(1fr)`) never overlap it
+  note-setting: note => {
+    block(height: 1fr, pad(x: 48pt, note))
+    pad(right: 32pt, bottom: 16pt, std.align(right, text(size: 28pt, weight: "bold", context [
+      #utils.slide-counter.display() / #utils.last-slide-number
+    ])))
+  },
+  note: note,
+  slide-preview: slide-preview,
+)
+
 
 #let theme(
   title: none,
@@ -293,6 +322,10 @@
   footer-markers: true,
   logo: auto,
   show-logo: true,
+  pympress: false,
+  pympress-prioritise-sys-inputs: true, // sys.inputs("pympress"), if given, overrides `pympress`
+  handout: false,
+  handout-prioritise-sys-inputs: true, // sys.inputs("handout"), if given, overrides `handout`
   ..args,
   body,
 ) = {
@@ -315,11 +348,15 @@
 
   show: touying-slides.with(
     config-page(paper: "presentation-" + aspect-ratio, margin: (left: 1.2cm, right: logo.width + 2*7mm, top: 2.2cm, bottom: 1cm)),
-    config-common(slide-fn: slide),
+    config-common(
+      slide-fn: slide,
+      notes-fn: notes,
+      ..get-pympress-config-common-dict-args(pympress, pympress-prioritise-sys-inputs),
+      ..get-handout-config-common-dict-args(handout, handout-prioritise-sys-inputs),
+    ),
     config-colors(
       primary: color,
       secondary: color,
-      neutral-darkest: color,
       neutral-lightest: background-color,
     ),
     config-info(

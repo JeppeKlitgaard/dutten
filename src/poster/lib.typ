@@ -110,7 +110,7 @@
         // #place(
         //   horizon + left,
         //   dx: 20mm,
-        //   image("assets/tex_dtu_compute_b_uk.pdf", height: 43.25mm),
+        //   image("_assets/tex_dtu_compute_b_uk.pdf", height: 43.25mm),
         //   // image("Compute_en_full_tint100.svg", height: 50.25mm),
         // )
       ],

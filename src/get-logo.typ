@@ -1,4 +1,4 @@
-#import "_utils.typ": _find-key-by-value
+#import "_utils/lib.typ": find-key-by-value
 #import "colors.typ": colors-rgb, colors-cmyk
 #import "deps.typ": decasify, jutils
 
@@ -21,14 +21,14 @@
   }
 
   if c.space() == cmyk {
-    let color-name = _find-key-by-value(colors-cmyk, c)
+    let color-name = find-key-by-value(colors-cmyk, c)
     let color-type-str = "CMYK"
     let filename = decasify.titlecase-string(color-name, "en", "").replace(" ", "_") + "_" + color-type-str + ".pdf"
 
-    return image("assets/logos/" + filename, ..img-args)
+    return image("_assets/logos/" + filename, ..img-args)
 
   } else if c.space() == rgb {
-    return jutils.recolor-svg(path("assets/dtu_logo.svg"), c)
+    return jutils.recolor-svg(path("_assets/dtu_logo.svg"), c)
 
   } else {
     panic("logo(c) expects a color in RGB or CMYK color space")

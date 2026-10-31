@@ -1,25 +1,5 @@
-/// Private utilities that should not be used by end user.
-
-#let _find-key-by-value(
-  /// Map to search in.
-  /// -> map
-  m,
-
-  /// Value to search for.
-  /// -> any
-  v,
-) = {
-  for k in m.keys() {
-    if m.at(k) == v {
-      return k
-    }
-  }
-
-  none
-}
-
 /// Resolves 4 sides into (top, bottom, left, right)
-#let _resolve-4-sides(
+#let resolve-4-sides(
   /// The input to be resolved
   /// Can be:
   /// - A single length: The same margin on all sides.
